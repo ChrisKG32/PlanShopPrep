@@ -1,0 +1,15 @@
+.new-recipe-container {
+	textarea {
+		height: 200px;
+	}
+	button[type="submit"] {
+		width: 200px;
+	}
+	.-autocomplete-container {
+		margin-top: 10px;
+	}
+
+	i.glyphicon-trash {
+		float:right;
+	}
+}

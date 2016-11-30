@@ -1,0 +1,12 @@
+<template name="Users">
+	{{#if isInRole 'admin'}}
+		<header>
+			<h3>
+				Users
+			</h3>
+		</header>
+		<article class="table-wrapper">
+			{{> reactiveTable collection=users fields=fields}}
+		</article>
+	{{/if}}
+</template>

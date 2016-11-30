@@ -1,0 +1,19 @@
+<template name="Nav">
+	<nav class="col-xs-12">
+		<span class="logo">
+			PSP
+		</span>
+		<ul class="nav-items list-inline">
+			{{#if currentUser}}
+				<li class="nav-item">Profile</li>
+				<li class="nav-item logout">Logout</li>
+			{{else}}
+				<li class="nav-item login-toggle">
+					<a href="/login">
+						Login / Signup
+					</a>
+				</li>
+			{{/if}}
+		</ul>
+	</nav>
+</template>

@@ -1,0 +1,27 @@
+<template name="Aside">
+	<aside>
+		<ul class="aside-items">
+			
+			{{#if isInRole 'admin'}}
+				<a href="/admin/new-recipe">
+					<li class="aside-item">
+						<i class="fa fa-pencil-square-o"></i>
+						<h5>New Recipe</h5>
+					</li>
+				</a>
+				<a href="/admin/view-recipes">
+					<li class="aside-item">
+						<i class="fa fa-book"></i>
+						<h5>View Recipes</h5>
+					</li>
+				</a>
+				<a href="/admin/users">
+					<li class="aside-item">
+						<i class="fa fa-user"></i>
+						<h5>Users</h5>
+					</li>
+				</a>
+			{{/if}}
+		</ul>
+	</aside>
+</template>

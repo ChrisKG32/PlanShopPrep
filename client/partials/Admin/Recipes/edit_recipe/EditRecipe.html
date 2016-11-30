@@ -1,0 +1,10 @@
+<template name="EditRecipe">
+	<header>
+		<h3>
+			Edit Existing Recipe
+		</h3>
+	</header>
+	<div class="new-recipe-container">
+		{{> quickForm doc=thisRecipe collection="Recipes" id="edit-recipe-form" type="update"}}
+	</div>
+</template>

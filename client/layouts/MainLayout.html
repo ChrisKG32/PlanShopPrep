@@ -1,0 +1,11 @@
+<template name="MainLayout">
+	<div class="container">
+		{{> Nav}}
+		{{#if currentUser}}
+			{{> Aside}}
+		{{/if}}
+		<div class="content {{#if currentUser}}logged-in{{/if}}">
+			{{> Template.dynamic template=main}}
+		</div>
+	</div>
+</template>
