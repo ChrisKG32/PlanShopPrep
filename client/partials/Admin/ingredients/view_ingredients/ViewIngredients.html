@@ -1,0 +1,11 @@
+<template name="ViewIngredients">
+	<header>
+		<h3>Ingredients List</h3>
+	</header>
+	<div class="recipes-table-wrapper">
+		{{> reactiveTable collection=ingredients fields=fields id="viewIngredientsTable"}}
+	</div>
+	{{#if $.Session.get 'selectedIngredient'}}
+		{{> Popup}}
+	{{/if}}
+</template>

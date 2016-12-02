@@ -44,3 +44,13 @@ momentjs:moment
 aldeed:simple-schema
 mpowaga:autoform-autocomplete
 session
+edgee:slingshot
+themeteorchef:bert
+xolvio:cleaner
+practicalmeteor:mocha
+xolvio:backdoor
+mdg:validated-method
+dburles:factory@1.0.0
+ddp-rate-limiter@1.0.6
+underscore
+check

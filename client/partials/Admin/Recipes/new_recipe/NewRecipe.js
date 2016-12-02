@@ -1,6 +1,7 @@
 
 
 Template.NewRecipe.events({
+	/*
 	'keyup .ingredient-name':function(e){
 		var currentTarget = $(e.currentTarget);
 		/*
@@ -32,8 +33,23 @@ Template.NewRecipe.events({
 		}
 		console.log(results);
 		*/
+		
+	//}
+	'click .-autocomplete-item':function(e, tmpl, doc){
+		var currentTarget = $(e.currentTarget);
+		var data = this;
+		var panelBody = currentTarget.parent().parent().parent().parent();
+		//var measurement = panelBody.find('.form-group:nth-child(5) input').val(this.measurement);
+		panelBody.find('.form-group:nth-child(4) select').val(this.type);
+
+		panelBody.find('.form-group:nth-child(7) input').val(this.aisle);
+
+	},
+	'change input[type="file"]':function ( event, template ) {
+		Modules.client.uploadToAmazonS3( { event: event, template: template } );
 
 	}
+
 });
 
 
@@ -43,52 +59,112 @@ Template.NewRecipe.helpers({
 	Recipes:function(){
 		return Recipes.find({})
 	},
-	autocomplete:function(){
-		var autocomplete = Session.get('autocomplete');
-		if (autocomplete && autocomplete.length > 0){
-			$('')
-		}
-	},
 	newSchema:function(){
 		var settings = {
 			position: 'bottom',
 			limit: 5,
 			rules: [
 				{
-					collection: Meteor.users,
-					field: 'username',
+					collection: Ingredients,
+					field: 'name',
 					template: Template.UserPill
 				}
 			]
 		};
 
-		newIngredient = new SimpleSchema({
+		IngredientsSchema = new SimpleSchema({
+			
+			createdAt: {
+				type: Date,
+				label: 'Created At',
+				autoValue:function(){
+					return new Date()
+				},
+				autoform: {
+					type: 'hidden'
+				}
+			},
+			createdBy: {
+				type: String,
+				label: 'Created By',
+				autoValue: function(){
+					return this.userId
+				},
+				autoform: {
+					type: 'hidden'
+				}
+			},
 			name: {
 				type: String,
 				label: 'Name',
-				
 				autoform: {
 					afFieldInput: {
 						type: 'autocomplete-input',
 						settings: settings
 					}
 				}
-				
+			},
+			type: {
+				type: String,
+				label: 'Type',
+				allowedValues: [
+					'volume',
+					'weight'
+				],
+				autoform: {
+					options: [
+						{
+							label: 'Volume',
+							value: 'volume'
+						},
+						{
+							label: 'Weight',
+							value: 'weight'
+						}
+					]
+				}
 			},
 			amount: {
-				type: String,
+				type: Number,
 				label: 'Amount'
 			},
 			measurement: {
 				type: String,
-				label: 'Measurement'
+				label: 'Measuring Unit'
+			},
+			aisle: {
+				type: String,
+				label: 'Aisle'
 			}
+
 		});
 
+
 		derp = new SimpleSchema({
+			
 			name: {
 				type: String,
 				label: 'Name'
+			},
+			createdAt: {
+				type: Date,
+				label: 'Date',
+				autoValue: function(){
+					return new Date()
+				},
+				autoform: {
+					type: "hidden"
+				}
+			},
+			author: {
+				type: String,
+				label: 'Author',
+				autoValue: function(){
+					return this.userId
+				},
+				autoform: {
+					type: "hidden"
+				}
 			},
 			category: {
 				type: String,
@@ -156,22 +232,26 @@ Template.NewRecipe.helpers({
 					}
 				}
 			},
+			time: {
+				type: String,
+				label: 'Time to Prepare'
+			},
 			yield: {
 				type: String,
 				label: 'Yield'
 			},
-			//img: {
-			//	type: String,
-			//	label: 'Image',
-			//	autoform: {
-			//		afFieldInput: {
-			//			type: 'file'
-			//		}
-			//	}
-			//},
+			img: {
+				type: String,
+				label: 'Image',
+				autoform: {
+					afFieldInput: {
+						type: 'file'
+					}
+				}
+			},
 			
 			ingredients: {
-				type: [newIngredient]
+				type: [IngredientsSchema]
 			},
 			paleo: {
 				type: Boolean,
@@ -242,14 +322,10 @@ Template.NewRecipe.helpers({
 Template.NewRecipe.onCreated(function(){
 	this.autorun(()=> {
 		this.subscribe('allRecipes');
+		this.subscribe('allIngredients');
+		this.subscribe('files');
 	})
 
-
-
-	NewSchema = new SimpleSchema({
-
-	})
-
-
+	SimpleSchema.debug = true;
 });
 

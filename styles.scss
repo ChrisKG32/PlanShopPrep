@@ -4,10 +4,13 @@ body, html {
 }
 
 .content {
-	overflow: auto;
+	height: calc(100vh - 60px);
+	overflow-y: scroll;
 	padding: 20px;
-
+	
 	&.logged-in {
 		margin-left: 100px;
+		
 	}
+
 }

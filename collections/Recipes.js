@@ -5,32 +5,76 @@ Recipes = new Mongo.Collection('recipes');
 Recipes.allow({
 	insert: function(userId, doc){
 		return !!userId;
-	}
+	},
+	update: function(userId, doc){
+		return !!userId;
+	},
 })
+	IngredientsSchema = new SimpleSchema({
 
-	Ingredient = new SimpleSchema({
-		name: {
-			type: String,
-			label: 'Name'			
-		},
-		amount: {
-			type: String,
-			label: 'Amount'
-		},
-		measurement: {
-			type: String,
-			label: 'Measurement'
-		}
-	});
-
-	RecipeSchema = new SimpleSchema({
-		_id: {
-			type: String,
-			label: 'id',
+		
+		createdAt: {
+			type: Date,
+			label: 'Created At',
+			autoValue:function(){
+				return new Date()
+			},
 			autoform: {
 				type: 'hidden'
 			}
 		},
+		createdBy: {
+			type: String,
+			label: 'Created By',
+			autoValue: function(){
+				return this.userId
+			},
+			autoform: {
+				type: 'hidden'
+			}
+		},
+		name: {
+			type: String,
+			label: 'Name'
+		},
+		type: {
+			type: String,
+			label: 'Type',
+			allowedValues: [
+				'volume',
+				'weight'
+			],
+			autoform: {
+				options: [
+					{
+						label: 'Volume',
+						value: 'volume'
+					},
+					{
+						label: 'Weight',
+						value: 'weight'
+					}
+				]
+			}
+		},
+		amount: {
+			type: Number,
+			label: 'Amount'
+		},
+		measurement: {
+			type: String,
+			label: 'Measuring Unit'
+		},
+		aisle: {
+			type: String,
+			label: 'Aisle'
+		}
+
+	});
+	RecipeSchema = new SimpleSchema({
+		
+
+		
 		name: {
 			type: String,
 			label: 'Name'
@@ -122,22 +166,21 @@ Recipes.allow({
 				}
 			}
 		},
+		time: {
+			type: String,
+			label: 'Time to Prepare'
+		},
 		yield: {
 			type: String,
 			label: 'Yield'
 		},
-		//img: {
-		//	type: String,
-		//	label: 'Image',
-		//	autoform: {
-		//		afFieldInput: {
-		//			type: 'file'
-		//		}
-		//	}
-		//},
+		img: {
+			type: String,
+			label: 'Image'
+		},
 		
 		ingredients: {
-			type: [Ingredient]
+			type: [IngredientsSchema]
 		},
 		paleo: {
 			type: Boolean,
@@ -196,11 +239,8 @@ Recipes.allow({
 				}
 			}
 		},
-			
-
-
-
 	});
+
 
 
 	Recipes.attachSchema(RecipeSchema);

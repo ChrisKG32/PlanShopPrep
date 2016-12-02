@@ -5,4 +5,7 @@
 	<div class="recipes-table-wrapper">
 		{{> reactiveTable collection=recipes fields=fields}}
 	</div>
+	{{#if $.Session.get 'selectedRecipe'}}
+		{{> Popup}}
+	{{/if}}
 </template>

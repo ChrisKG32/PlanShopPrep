@@ -1,8 +1,12 @@
 
 
 Template.ViewRecipes.events({
-	'click .reactive-table tr':function(e, tmpl){
-		FlowRouter.go('/admin/edit-recipe/' + this._id);
+	'click .reactive-table tbody tr':function(e, tmpl){
+		if ($(e.target).hasClass('edit-recipe')){
+			FlowRouter.go('/admin/edit-recipe/' + this._id);
+		} else if ($(e.target).hasClass('delete-entry')){
+			Session.set('selectedRecipe', this);
+		}
 	}
 });
 
@@ -30,7 +34,7 @@ Template.ViewRecipes.helpers({
 					return 'text-center'
 				},
 				cellClass:function(){
-					return 'text-center edit-user'
+					return 'text-center edit-recipe'
 				}
 			}, 
 			{
@@ -66,6 +70,20 @@ Template.ViewRecipes.helpers({
 				cellClass:function(){
 					return 'text-center'
 				}
+			},
+			{
+				key: '_id',
+				label: 'Delete',
+				fn: function(){
+					return 'Delete'
+				},
+				headerClass:function(){
+					return 'text-center'
+				},
+				cellClass:function(){
+					return 'text-center delete-entry'
+				}
+
 			}
 		]
 	}

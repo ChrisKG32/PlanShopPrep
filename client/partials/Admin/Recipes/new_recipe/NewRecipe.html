@@ -3,11 +3,9 @@
 		<header>
 			<h3>
 				Insert New Recipe
-				<i class="glyphicon glyphicon-trash"></i>
 			</h3>
-			
 		</header>
-		{{> quickForm collection="Recipes" schema=newSchema id="myNewForm" type="insert"}}
+		{{> quickForm collection="Recipes" autocomplete="off" schema=newSchema id="myNewForm" type="insert"}}
 
 	</div>
 </template>
