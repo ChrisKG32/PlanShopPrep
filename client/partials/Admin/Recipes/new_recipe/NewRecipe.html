@@ -1,11 +1,8 @@
 <template name="NewRecipe">
 	<div class="new-recipe-container">
-		<header>
-			<h3>
-				Insert New Recipe
-			</h3>
-		</header>
+		{{> NewRecipeForm}}
+		<!--
 		{{> quickForm collection="Recipes" autocomplete="off" schema=newSchema id="myNewForm" type="insert"}}
-
+		-->
 	</div>
 </template>

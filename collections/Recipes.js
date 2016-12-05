@@ -190,19 +190,19 @@ Recipes.allow({
 			type: Boolean,
 			label: 'Primal'
 		},
-		Keto: {
+		keto: {
 			type: Boolean,
 			label: 'Keto'
 		},
-		Vegan: {
+		vegan: {
 			type: Boolean,
 			label: 'Vegan'
 		},
-		Vegetarian: {
+		vegetarian: {
 			type: Boolean,
 			label: 'Vegetarian'
 		},
-		Crockpot: {
+		crockpot: {
 			type: Boolean,
 			label: 'Crockpot'
 		},

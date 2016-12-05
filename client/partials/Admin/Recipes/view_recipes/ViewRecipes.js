@@ -7,6 +7,10 @@ Template.ViewRecipes.events({
 		} else if ($(e.target).hasClass('delete-entry')){
 			Session.set('selectedRecipe', this);
 		}
+	},
+	'change #derp':function(e){
+		var currentTarget = $(e.currentTarget);
+		console.log(currentTarget);
 	}
 });
 

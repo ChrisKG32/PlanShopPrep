@@ -29,6 +29,7 @@ let _uploadFileToAmazon = (file) => {
 		} else {
 			//Bert.alert( "Image upload successfully.", "success" );
 			_addUrlToDatabase(url);
+			Session.set('fileUploaded', url);
 			console.log(url);
 		}
 	});

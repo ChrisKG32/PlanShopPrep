@@ -1,23 +1,14 @@
-
-
-Template.NewRecipe.events({
-	'click .-autocomplete-item':function(e, tmpl, doc){
-		var currentTarget = $(e.currentTarget);
-		var data = this;
-		var panelBody = currentTarget.parent().parent().parent().parent();
-		//var measurement = panelBody.find('.form-group:nth-child(5) input').val(this.measurement);
-		panelBody.find('.form-group:nth-child(4) select').val(this.type);
-
-		panelBody.find('.form-group:nth-child(7) input').val(this.aisle);
+Template.NewRecipeForm.events({
+	'change input[type="file"]':function ( event, template ) {
+		Modules.client.uploadToAmazonS3( { event: event, template: template } );
 
 	}
-
 });
 
-
-
-
-Template.NewRecipe.helpers({
+Template.NewRecipeForm.helpers({
+	fileUploaded:function(){
+		return Session.get('fileUploaded')
+	},
 	Recipes:function(){
 		return Recipes.find({})
 	},
@@ -204,12 +195,7 @@ Template.NewRecipe.helpers({
 			},
 			img: {
 				type: String,
-				label: 'Image',
-				autoform: {
-					afFieldInput: {
-						value: 'derp'
-					}
-				}
+				label: 'Image'
 			},
 			
 			ingredients: {
@@ -223,19 +209,19 @@ Template.NewRecipe.helpers({
 				type: Boolean,
 				label: 'Primal'
 			},
-			Keto: {
+			keto: {
 				type: Boolean,
 				label: 'Keto'
 			},
-			Vegan: {
+			vegan: {
 				type: Boolean,
 				label: 'Vegan'
 			},
-			Vegetarian: {
+			vegetarian: {
 				type: Boolean,
 				label: 'Vegetarian'
 			},
-			Crockpot: {
+			crockpot: {
 				type: Boolean,
 				label: 'Crockpot'
 			},
@@ -277,17 +263,4 @@ Template.NewRecipe.helpers({
 
 		return derp
 	}
-});
-
-
-
-Template.NewRecipe.onCreated(function(){
-	this.autorun(()=> {
-		this.subscribe('allRecipes');
-		this.subscribe('allIngredients');
-		this.subscribe('files');
-	})
-
-	SimpleSchema.debug = true;
-});
-
+})

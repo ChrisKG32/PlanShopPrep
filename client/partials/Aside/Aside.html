@@ -4,31 +4,31 @@
 			
 			{{#if isInRole 'admin'}}
 				<a href="/admin/new-recipe">
-					<li class="aside-item">
+					<li class="aside-item {{active 'new-recipe'}}" id="new-recipe">
 						<i class="fa fa-pencil-square-o"></i>
-						<h5>New Recipe</h5>
+						<h5>Add New Recipe</h5>
 					</li>
 				</a>
 				<a href="/admin/view-recipes">
-					<li class="aside-item">
+					<li class="aside-item {{active 'view-recipes'}}" id="view-recipes">
 						<i class="fa fa-book"></i>
 						<h5>View Recipes</h5>
 					</li>
 				</a>
 				<a href="/admin/new-ingredient">
-					<li class="aside-item">
+					<li class="aside-item {{active 'new-ingredient'}}" id="new-ingredient">
 						<i class="fa fa-shopping-basket"></i>
 						<h5>New Ingredient</h5>
 					</li>
 				</a>
 				<a href="/admin/view-ingredients">
-					<li class="aside-item">
+					<li class="aside-item {{active 'view-ingredients'}}" id="view-ingredients">
 						<i class="fa fa-list"></i>
 						<h5>View Ingredients</h5>
 					</li>
 				</a>
 				<a href="/admin/users">
-					<li class="aside-item">
+					<li class="aside-item {{active 'users'}}" id="users">
 						<i class="fa fa-user"></i>
 						<h5>Users</h5>
 					</li>

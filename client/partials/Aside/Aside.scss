@@ -1,18 +1,38 @@
 aside {
 	float: left;
-	height: calc(100vh - 60px);
-	background-color: rgb(230,230,230);
+	height: calc(100vh - 70px);
 	width: 100px;
+	background-color: rgb(240,240,240);
+	color: rgb(100,100,100);
 	ul {
-		margin-top: 50px;
+		margin-top: 25px;
 		padding: 0;
 		list-style: none;
-		li {
-			i {
-				font-size: 200% !important;
+		a {
+			text-decoration: none;
+
+			&:hover { 
+				text-decoration: none;
+				underline: none;
 			}
-			padding: 15px 10px;
+		}
+
+		li {
+			box-sizing: border-box;
+			color: rgb(100,100,100);
+			i {
+				font-size: 150% !important;
+			}
+			h5 {
+				margin:0;
+			}
+			padding: calc((100vh - 60px) / 25) 10px;
 			text-align: center;
+
+			&.active {
+				border-left: 10px solid rgb(100,100,100);
+				color: rgb(50,50,50);
+			}
 
 		}
 	}
