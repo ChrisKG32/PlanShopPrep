@@ -18,6 +18,7 @@ Template.NewRecipe.events({
 
 
 Template.NewRecipe.helpers({
+	/*
 	Recipes:function(){
 		return Recipes.find({})
 	},
@@ -204,12 +205,7 @@ Template.NewRecipe.helpers({
 			},
 			img: {
 				type: String,
-				label: 'Image',
-				autoform: {
-					afFieldInput: {
-						value: 'derp'
-					}
-				}
+				label: 'Image'
 			},
 			
 			ingredients: {
@@ -277,6 +273,7 @@ Template.NewRecipe.helpers({
 
 		return derp
 	}
+	*/
 });
 
 
@@ -286,6 +283,8 @@ Template.NewRecipe.onCreated(function(){
 		this.subscribe('allRecipes');
 		this.subscribe('allIngredients');
 		this.subscribe('files');
+		this.subscribe('allMeasurements');
+		this.subscribe('allUSDA');
 	})
 
 	SimpleSchema.debug = true;

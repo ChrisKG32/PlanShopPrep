@@ -14,8 +14,7 @@
 		display: inline-block;
 		border-radius: 8px;
 		border: 1px solid black;
-		top: 35%;
-		right: 40%;
+		transform: translate(calc(50vw - 125px), calc(50vh - 75px));
 		z-index: 99;
 		background-color: white;
 

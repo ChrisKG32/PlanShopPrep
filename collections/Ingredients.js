@@ -36,6 +36,10 @@ IngredientsSchema = new SimpleSchema({
 		type: String,
 		label: 'Name'
 	},
+	ndb: {
+		type: Number,
+		label: 'NDB No.'
+	},
 	type: {
 		type: String,
 		label: 'Type',
@@ -55,10 +59,6 @@ IngredientsSchema = new SimpleSchema({
 				}
 			]
 		}
-	},
-	measurement: {
-		type: String,
-		label: 'Measuring Unit'
 	},
 	aisle: {
 		type: String,

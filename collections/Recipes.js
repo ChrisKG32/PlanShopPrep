@@ -176,7 +176,8 @@ Recipes.allow({
 		},
 		img: {
 			type: String,
-			label: 'Image'
+			label: 'Image',
+			optional: true
 		},
 		
 		ingredients: {

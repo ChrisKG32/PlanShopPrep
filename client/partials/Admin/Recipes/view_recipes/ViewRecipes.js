@@ -27,7 +27,12 @@ Template.ViewRecipes.helpers({
 		return Session.get('recipePage') === param1
 	},
 	recipes: function(){
-		return Recipes.find({});
+		var recipes = Recipes.find().fetch();
+		if (recipes && recipes.length > 0){
+			return Recipes.find({})
+		} else {
+			return false
+		}
 	},
 	fields:function(){
 		return [

@@ -2,12 +2,25 @@ Template.NewRecipeForm.events({
 	'change input[type="file"]':function ( event, template ) {
 		Modules.client.uploadToAmazonS3( { event: event, template: template } );
 
+	},
+	'autocompleteselect input':function(event, tmpl, doc){
+		var currentTarget = $(event.currentTarget);
+		currentTarget.val(doc.value);
+	},
+	'keyup input[name="ingredient.0.dbSearch"]':function(){
+		var currentTarget = $(e.currentTarget);
+		Session.set('dbSearch', currentTarget.val());
 	}
 });
 
 Template.NewRecipeForm.helpers({
 	fileUploaded:function(){
-		return Session.get('fileUploaded')
+		var reactVar = Session.get('fileUploaded');
+		if (reactVar){
+			return reactVar
+		} else {
+			return false
+		}
 	},
 	Recipes:function(){
 		return Recipes.find({})
@@ -21,6 +34,17 @@ Template.NewRecipeForm.helpers({
 					collection: Ingredients,
 					field: 'name',
 					template: Template.UserPill
+				}
+			]
+		};
+		var settings2 = {
+			position: 'bottom',
+			limit: 2,
+			rules: [
+				{
+					collection: Measurements,
+					field: 'name',
+					template: Template.MeasurementPill
 				}
 			]
 		};
@@ -57,6 +81,7 @@ Template.NewRecipeForm.helpers({
 					}
 				}
 			},
+			/*
 			type: {
 				type: String,
 				label: 'Type',
@@ -76,14 +101,22 @@ Template.NewRecipeForm.helpers({
 						}
 					]
 				}
-			},
+			},*/
 			amount: {
 				type: Number,
-				label: 'Amount'
+				label: 'Amount',
+				decimal: true,
+				min: 0
 			},
 			measurement: {
 				type: String,
-				label: 'Measuring Unit'
+				label: 'Measuring Unit',
+				autoform: {
+					afFieldInput: {
+						type: 'autocomplete-input',
+						settings: settings2
+					}
+				}
 			},
 			aisle: {
 				type: String,
@@ -195,7 +228,8 @@ Template.NewRecipeForm.helpers({
 			},
 			img: {
 				type: String,
-				label: 'Image'
+				label: 'Image',
+				optional: true
 			},
 			
 			ingredients: {
@@ -263,4 +297,40 @@ Template.NewRecipeForm.helpers({
 
 		return derp
 	}
-})
+});
+
+Template.NewRecipeForm.onCreated(function(){
+	Session.set('fileUploaded', false);
+	this.dbSearch = new ReactiveVar(false);
+});
+
+Template.NewRecipeForm.onRendered(function(){
+
+	var hookObject = {
+		before: {
+
+			insert:function(doc){
+				var numIngredients = $('.panel-body').length;
+				console.log(numIngredients);
+
+				for(var i = 0; i < numIngredients; i++){
+					var name = $('input[name="ingredients.'+ i +'.name"]').val();
+					var type = $('select[name="ingredients.'+ i +'.type"]').val();
+					var aisle = $('input[name="ingredients.'+ i +'.aisle"]').val();
+					console.log(`${name} and ${type} and ${aisle}.`);
+
+					var conflict = Ingredients.findOne({$and: [{name: name}, {type: type}, {aisle: aisle}]});
+					if (!conflict){
+						Meteor.call('ingredientFromRecipe', name, type, aisle);
+					}
+				}
+				return doc
+			}
+		}
+		//Check ingredients for submitted recipe with existing ingredients
+	}
+	AutoForm.hooks({
+		insertRecipeForm: hookObject
+	});
+
+});

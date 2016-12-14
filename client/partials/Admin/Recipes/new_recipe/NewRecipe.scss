@@ -7,5 +7,18 @@
 	}
 	.-autocomplete-container {
 		margin-top: 10px;
+		li {
+			span.label {
+				color: black;
+			}
+		}
+
+		li.selected {
+			span.label {
+				color: white;
+			}
+			
+		}
+
 	}
 }

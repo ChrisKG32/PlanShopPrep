@@ -1,5 +1,5 @@
 <template name="NewRecipeForm">
-	{{#autoForm schema=newSchema id="insertRecipeForm" type="insert"}}
+	{{#autoForm collection="Recipes" autocomplete="off" schema=newSchema id="insertRecipeForm" type="insert"}}
 		<fieldset>
 			<header>
 				<h3>
@@ -11,13 +11,9 @@
 			{{> afQuickField name='difficulty'}}
 			{{> afQuickField name='time'}}
 			{{> afQuickField name='yield'}}
-			{{#if $.Session.get 'fileUploaded'}}
-				<input type="file" id="new-upload">
-				{{> afQuickField name='img' value=fileUploaded id="filePath" disabled=true}}
-			{{else}}
-				<input type="file">
-			{{/if}}
-			{{> afQuickField name='ingredients'}}
+			<input type="file" id="new-upload">
+			{{> afQuickField name='img' value=fileUploaded id="filePath"}}
+			{{> afArrayField name='ingredients' template='ingredientsArray'}}
 			{{> afQuickField name='paleo'}}
 			{{> afQuickField name='primal'}}
 			{{> afQuickField name='keto'}}

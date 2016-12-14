@@ -20,6 +20,20 @@ Meteor.publish('allIngredients', function(){
 	
 });
 
+Meteor.publish('allMeasurements', function(){
+	if (Roles.userIsInRole(this.userId), 'admin'){
+		return Measurements.find({});
+	}
+	
+});
+
+Meteor.publish('allUSDA', function(){
+	if (Roles.userIsInRole(this.userId), 'admin'){
+		return USDA.find({});
+	}
+	
+});
+
 
 Meteor.publish( 'files', function(){
   var data = Files.find( { "userId": this.userId } );

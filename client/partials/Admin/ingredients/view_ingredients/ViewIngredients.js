@@ -11,7 +11,12 @@ Template.ViewIngredients.events({
 
 Template.ViewIngredients.helpers({
 	ingredients:function(){
-		return Ingredients.find({})
+		var ingredients = Ingredients.find().fetch();
+		if (ingredients && ingredients.length > 0){
+			return Ingredients.find({})
+		} else {
+			return false
+		}
 	},
 	fields:function(){
 		return [
