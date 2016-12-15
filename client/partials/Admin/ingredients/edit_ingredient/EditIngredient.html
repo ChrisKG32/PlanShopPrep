@@ -4,7 +4,11 @@
 			Edit Existing Ingredient
 		</h3>
 	</header>
-	<div class="new-ingredient-container">
-		{{> quickForm doc=thisIngredient collection="Ingredients" id="edit-ingredient-form" type="update"}}
-	</div>
+	{{#if Template.subscriptionsReady}}
+		<div class="new-ingredient-container">
+			{{> quickForm doc=thisIngredient collection="Ingredients" id="edit-ingredient-form" type="update"}}
+		</div>
+	{{else}}
+		{{> spinner}}
+	{{/if}}
 </template>

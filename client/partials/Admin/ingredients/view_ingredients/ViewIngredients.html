@@ -2,14 +2,18 @@
 	<header>
 		<h3>Ingredients List</h3>
 	</header>
-	{{#if ingredients}}
-		<div class="recipes-table-wrapper">
-			{{> reactiveTable collection=ingredients fields=fields id="viewIngredientsTable"}}
-		</div>
+	{{#if Template.subscriptionsReady}}
+		{{#if ingredients}}
+			<div class="recipes-table-wrapper">
+				{{> reactiveTable collection=ingredients fields=fields id="viewIngredientsTable"}}
+			</div>
+		{{else}}
+			<h4>No ingredients in database. Insert new ingredients <a href="/admin/new-ingredient">here</a>.</h4>
+		{{/if}}
+		{{#if $.Session.get 'selectedIngredient'}}
+			{{> Popup}}
+		{{/if}}
 	{{else}}
-		<h4>No ingredients in database. Insert new ingredients <a href="/admin/new-ingredient">here</a>.</h4>
-	{{/if}}
-	{{#if $.Session.get 'selectedIngredient'}}
-		{{> Popup}}
+		{{> spinner}}
 	{{/if}}
 </template>
