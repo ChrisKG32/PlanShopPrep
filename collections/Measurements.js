@@ -41,6 +41,3 @@ MeasurementsSchema = new SimpleSchema({
 	}
 });
 
-
-
-Ingredients.attachSchema(MeasurementsSchema);

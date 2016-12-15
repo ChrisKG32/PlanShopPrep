@@ -1,33 +1,37 @@
 <template name="NewRecipeForm">
-	{{#autoForm collection="Recipes" autocomplete="off" schema=newSchema id="insertRecipeForm" type="insert"}}
-		<fieldset>
-			<header>
-				<h3>
-					New Recipe
-				</h3>
-			</header>
-			{{> afQuickField name='name'}}
-			{{> afQuickField name='category'}}
-			{{> afQuickField name='difficulty'}}
-			{{> afQuickField name='time'}}
-			{{> afQuickField name='yield'}}
-			<input type="file" id="new-upload">
-			{{> afQuickField name='img' value=fileUploaded id="filePath"}}
-			{{> afArrayField name='ingredients' template='ingredientsArray'}}
-			{{> afQuickField name='paleo'}}
-			{{> afQuickField name='primal'}}
-			{{> afQuickField name='keto'}}
-			{{> afQuickField name='vegan'}}
-			{{> afQuickField name='vegetarian'}}
-			{{> afQuickField name='crockpot'}}
-			{{> afQuickField name='whole30'}}
-			{{> afQuickField name='wahls'}}
-			{{> afQuickField name='under6'}}
-			{{> afQuickField name='under400'}}
-			{{> afQuickField name='glutenFree'}}
-			{{> afQuickField name='dairyFree'}}
-			{{> afQuickField name='instructions'}}
-		</fieldset>
-		<button type="submit" class="btn btn-primary">Submit Recipe</button>
-	{{/autoForm}}
+	{{#if Template.subscriptionsReady}}
+		{{#autoForm collection="Recipes" autocomplete="off" schema=newSchema id="insertRecipeForm" type="insert"}}
+			<fieldset>
+				<header>
+					<h3>
+						New Recipe
+					</h3>
+				</header>
+				{{> afQuickField name='name'}}
+				{{> afQuickField name='category'}}
+				{{> afQuickField name='difficulty'}}
+				{{> afQuickField name='time'}}
+				{{> afQuickField name='yield'}}
+				<input type="file" id="new-upload">
+				{{> afQuickField name='img' value=fileUploaded id="filePath"}}
+				{{> afArrayField name='ingredients'}}
+				{{> afQuickField name='paleo'}}
+				{{> afQuickField name='primal'}}
+				{{> afQuickField name='keto'}}
+				{{> afQuickField name='vegan'}}
+				{{> afQuickField name='vegetarian'}}
+				{{> afQuickField name='crockpot'}}
+				{{> afQuickField name='whole30'}}
+				{{> afQuickField name='wahls'}}
+				{{> afQuickField name='under6'}}
+				{{> afQuickField name='under400'}}
+				{{> afQuickField name='glutenFree'}}
+				{{> afQuickField name='dairyFree'}}
+				{{> afQuickField name='instructions'}}
+			</fieldset>
+			<button type="submit" class="btn btn-primary">Submit Recipe</button>
+		{{/autoForm}}
+	{{else}}
+		{{> spinner}}
+	{{/if}}
 </template>

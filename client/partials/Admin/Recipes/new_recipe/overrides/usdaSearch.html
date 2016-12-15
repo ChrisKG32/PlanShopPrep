@@ -1,0 +1,19 @@
+<template name="usdaSearch">
+  <div class="panel panel-default usda-search-wrapper">
+    <header><h4 class="text-center">Select USDA equivalent for new ingredient <span class="fa fa-plus pull-right"></span></h4></header>
+    <div class="panel-body {{usdaDisplay}}">
+      <div class="form-group">
+        <label for="USDA-search">USDA Search</label>
+        <input type="text" class="form-control USDA-search">
+      </div>
+      <div class="form-group">
+        <label for="USDA-select">USDA Select</label>
+        <select class="form-control USDA-select">
+          {{#each usdaSearch}}
+            <option ndb-no="{{this.ndb_no}}">[{{this.ndb_no}}] {{this.shrt_desc}}</option>
+          {{/each}}
+        </select>
+      </div>
+    </div>
+  </div>
+</template>

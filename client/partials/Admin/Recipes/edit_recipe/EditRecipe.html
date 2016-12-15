@@ -2,7 +2,11 @@
 	<header>
 		<legend>Edit Recipe</legend>
 	</header>
+	{{#if Template.subscriptionsReady}}
 	<div class="new-recipe-container">
 		{{> quickForm doc=thisRecipe collection="Recipes" id="edit-recipe-form" type="update"}}
 	</div>
+	{{else}}
+		{{> spinner}}
+	{{/if}}
 </template>

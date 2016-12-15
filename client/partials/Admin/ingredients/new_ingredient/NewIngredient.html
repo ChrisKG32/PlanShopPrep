@@ -5,6 +5,10 @@
 				Insert New Ingredient
 			</h3>
 		</header>
-		{{> quickForm collection="Ingredients" id="newIngredientForm" type="insert"}}
+		{{#if Template.subscriptionsReady}}
+			{{> quickForm collection="Ingredients" id="newIngredientForm" type="insert"}}
+		{{else}}
+			{{> spinner}}
+		{{/if}}
 	</div>
 </template>

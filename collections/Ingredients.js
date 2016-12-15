@@ -32,33 +32,13 @@ IngredientsSchema = new SimpleSchema({
 			type: 'hidden'
 		}
 	},
+	ndbno: {
+		type: Number,
+		label: 'NDB Number'
+	},
 	name: {
 		type: String,
 		label: 'Name'
-	},
-	ndb: {
-		type: Number,
-		label: 'NDB No.'
-	},
-	type: {
-		type: String,
-		label: 'Type',
-		allowedValues: [
-			'volume',
-			'weight'
-		],
-		autoform: {
-			options: [
-				{
-					label: 'Volume',
-					value: 'volume'
-				},
-				{
-					label: 'Weight',
-					value: 'weight'
-				}
-			]
-		}
 	},
 	aisle: {
 		type: String,

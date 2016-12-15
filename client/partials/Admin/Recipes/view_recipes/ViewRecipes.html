@@ -2,14 +2,18 @@
 	<header>
 		<h3>Recipes List</h3>
 	</header>
-	{{#if recipes}}
-		<div class="recipes-table-wrapper">
-			{{> reactiveTable collection=recipes fields=fields}}
-		</div>
+	{{#if Template.subscriptionsReady}}
+		{{#if recipes}}
+			<div class="recipes-table-wrapper">
+				{{> reactiveTable collection=recipes fields=fields}}
+			</div>
+		{{else}}
+			<h4>No recipes in database. Insert new recipes <a href="/admin/new-recipe">here</a>.</h4>
+		{{/if}}
+		{{#if $.Session.get 'selectedRecipe'}}
+			{{> Popup}}
+		{{/if}}
 	{{else}}
-		<h4>No recipes in database. Insert new recipes <a href="/admin/new-recipe">here</a>.</h4>
-	{{/if}}
-	{{#if $.Session.get 'selectedRecipe'}}
-		{{> Popup}}
+		{{> spinner}}
 	{{/if}}
 </template>

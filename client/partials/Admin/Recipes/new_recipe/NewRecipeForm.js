@@ -22,9 +22,11 @@ Template.NewRecipeForm.helpers({
 			return false
 		}
 	},
+
 	Recipes:function(){
 		return Recipes.find({})
 	},
+
 	newSchema:function(){
 		var settings = {
 			position: 'bottom',
@@ -71,6 +73,13 @@ Template.NewRecipeForm.helpers({
 					type: 'hidden'
 				}
 			},
+			ndbno: {
+				type: Number,
+				label: 'NDB Number',
+				autoform: {
+					type: 'hidden'
+				}
+			},
 			name: {
 				type: String,
 				label: 'Name',
@@ -81,27 +90,6 @@ Template.NewRecipeForm.helpers({
 					}
 				}
 			},
-			/*
-			type: {
-				type: String,
-				label: 'Type',
-				allowedValues: [
-					'volume',
-					'weight'
-				],
-				autoform: {
-					options: [
-						{
-							label: 'Volume',
-							value: 'volume'
-						},
-						{
-							label: 'Weight',
-							value: 'weight'
-						}
-					]
-				}
-			},*/
 			amount: {
 				type: Number,
 				label: 'Amount',
@@ -125,8 +113,7 @@ Template.NewRecipeForm.helpers({
 
 		});
 
-
-		derp = new SimpleSchema({
+		MainRecipeSchema = new SimpleSchema({
 			
 			name: {
 				type: String,
@@ -294,8 +281,7 @@ Template.NewRecipeForm.helpers({
 			},
 		});
 
-
-		return derp
+		return MainRecipeSchema
 	}
 });
 
@@ -310,18 +296,25 @@ Template.NewRecipeForm.onRendered(function(){
 		before: {
 
 			insert:function(doc){
-				var numIngredients = $('.panel-body').length;
+				var numIngredients = $('.usda-search-wrapper').length;
 				console.log(numIngredients);
 
 				for(var i = 0; i < numIngredients; i++){
+					var ndbno = Number($('input[name="ingredients.'+ i +'.ndbno"]').val());
 					var name = $('input[name="ingredients.'+ i +'.name"]').val();
-					var type = $('select[name="ingredients.'+ i +'.type"]').val();
 					var aisle = $('input[name="ingredients.'+ i +'.aisle"]').val();
-					console.log(`${name} and ${type} and ${aisle}.`);
+					var data = {
+						ndbno: ndbno,
+						name: name,
+						aisle: aisle,
+						createdAt: new Date(),
+						createdBy: Meteor.userId()
+					}
+					console.log(`${data.name} and ${data.aisle} and ${data.ndbno}.`);
 
-					var conflict = Ingredients.findOne({$and: [{name: name}, {type: type}, {aisle: aisle}]});
+					var conflict = Ingredients.findOne({$and: [{name: data.name}, {ndbno: data.ndbno}, {aisle: data.aisle}]});
 					if (!conflict){
-						Meteor.call('ingredientFromRecipe', name, type, aisle);
+						Meteor.call('ingredientFromRecipe', data);
 					}
 				}
 				return doc

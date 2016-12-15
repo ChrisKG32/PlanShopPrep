@@ -33,29 +33,13 @@ Recipes.allow({
 				type: 'hidden'
 			}
 		},
+		ndbno: {
+			type: Number,
+			label: 'NDB Number'
+		},
 		name: {
 			type: String,
 			label: 'Name'
-		},
-		type: {
-			type: String,
-			label: 'Type',
-			allowedValues: [
-				'volume',
-				'weight'
-			],
-			autoform: {
-				options: [
-					{
-						label: 'Volume',
-						value: 'volume'
-					},
-					{
-						label: 'Weight',
-						value: 'weight'
-					}
-				]
-			}
 		},
 		amount: {
 			type: Number,
@@ -71,10 +55,7 @@ Recipes.allow({
 		}
 
 	});
-	RecipeSchema = new SimpleSchema({
-		
-
-		
+	RecipeSchema = new SimpleSchema({		
 		name: {
 			type: String,
 			label: 'Name'
